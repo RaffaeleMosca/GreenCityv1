@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="accordion m-5" id="accordionExample">
+        {% for ordinazioni in ordinazione %}
+            {%   if ordinazioni.utente == session['user']['email']%}
+            <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        {{ ordinazioni.tipo }}
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        Negozio:   {{ ordinazioni.negozio }}
+          <br>
+        Indirizzo:   {{ ordinazioni.indirizzo }}
+          <br>
+        Contenuto box:   {{ ordinazioni.contenuto }}
+          <form class="accordion m-2" action="{{ url_for('eliminaordi', oid=ordinazioni._id)}}" method="POST">
+              <button type="submit" class="btn btn-danger">Cancella ordinazione</button>
+          </form>
+          <form class="accordion m-2"action="{{ url_for('boxritirato', oid=ordinazioni._id)}}" method="POST">
+              <button type="submit" class="btn btn-success">Box ritirato</button>
+          </form>
+
+      </div>
+    </div>
+  </div>{% endif %}
+        {% endfor %}
+</div>
+
+
+
+{% endblock %}

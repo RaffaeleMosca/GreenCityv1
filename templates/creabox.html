@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<div class="card text-center">
+    <div class="card-header" style="background-color: darkseagreen">
+        Inserisci le informazioni della tua foodbox
+    </div>
+    <div class="card-body">
+        <form name="ins_box_form" action="{{ url_for('create', utente =  session['user']['email']) }}" method="POST" role="form">
+            <label for="name">Nome box</label>
+            <br>
+            <input type="text" name="tipo" class="field" required>
+            <br>
+            <label for="name">Contenuto</label>
+            <br>
+            <input type="text" name="contenuto" class="field" required>
+            <br>
+            <label for="name">Quantità</label>
+            <br>
+            <input type="number" name="quantita" class="field" required>
+            <br>
+            <label for="name">Nome negozio</label>
+            <br>
+            <input type="text" name="negozio" class="field" required>
+            <br>
+            <label for="name">Indirizzo</label>
+            <br>
+            <input type="text" name="indirizzo" class="field" required>
+            <br><br>
+            <input type="submit" value="Carica la tua box" class="btn btn-success">
+            <br>
+
+        </form>
+
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="accordion m-5" id="accordionExample">
+        {% for foodbox in foodb %}
+            {% if foodbox.utente == session['user']['email'] %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            {{ foodbox.tipo }}
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            Contenuto box: {{ foodbox.contenuto }}
+                            <br>
+                            Quantità disponibile: {{ foodbox.quantita }}
+                            <br>
+                            Nome negozio: {{ foodbox.negozio}}
+                            <br>
+                            Indirizzo: {{ foodbox.indirizzo }}
+                            <br>
+                            <b>Utenti che hanno prenotato la tua box:</b>
+                            <br>
+                            {% for ordinazioni in ordi %}
+                                {% if foodbox._id == ordinazioni.box_number %}
+                                    {{ ordinazioni.utente }}
+                                    <br>
+                                {% endif %}
+                            {% endfor %}
+
+
+                            {% if foodbox.quantita == 0 %}
+                                <b>COMPLIMENTI TUTTE LE TUE BOX SONO STATE PRENOTATE!!</b>
+                            {% endif %}
+                            <form action="{{ url_for('elimina', oid=foodbox._id)}}" method="POST">
+                                <button type="submit" class="btn btn-danger ">Elimina box</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+        {% endfor %}
+
+
+</div>
+
+
+{% endblock %}
