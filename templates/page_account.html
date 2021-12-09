@@ -11,7 +11,7 @@
             <h1>Il tuo account</h1>
         </div>
         <div class="card-body">
-            <form name="modifica_pass_form" style="margin-top: 2%" action="{{ url_for('modificapass', utente =  session['user']['email'], passw = session['user']['password']) }}" method="POST" role="form">
+            <form name="modifica_pass_form" style="margin-top: 2%" action="{{ url_for('modificapass', utente =  session['user']['email']) }}" method="POST" role="form">
                 <h4>
                 Nome utente: {{ session['user']['name'] }}
                 <br><br>

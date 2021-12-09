@@ -45,11 +45,11 @@ def raccolta():
 def utente():
     return render_template('page_account.html')
 
-@app.route('/modificapass/<utente>,<passw>', methods=['GET', 'POST'])
-def modificapass(utente, passw):
-    password = request.form.get('password')
-    password = pbkdf2_sha256.encrypt(password)
-    if passw == password:
+@app.route('/modificapass/<utente>', methods=['GET', 'POST'])
+def modificapass(utente):
+    utentee = db.users.find_one({'email': utente})
+    passw = utentee['password']
+    if pbkdf2_sha256.verify(request.form.get('password'), passw):
         newpassword = request.form.get('newpassword')
         newpassword = pbkdf2_sha256.encrypt(newpassword)
         db.users.update_one({"email": utente}, {"$set": {"password": newpassword}})

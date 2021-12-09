@@ -23,7 +23,7 @@
           Nome negozio: {{ foodbox.negozio}}
           <br>
           Indirizzo: {{ foodbox.indirizzo }}
-          <form action="{{ url_for('ordina', oid=foodbox._id, utente =  session['user']['email'])}}" method="POST">
+          <form class="accordion m-2" action="{{ url_for('ordina', oid=foodbox._id, utente =  session['user']['email'])}}" method="POST">
             <button type="submit" class="btn btn-success">Ordina</button>
           </form>
       </div>
