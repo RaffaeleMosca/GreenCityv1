@@ -3,41 +3,41 @@
 {% block content %}
 
 
-
+<div class="container-fluid" style="width: fit-content; margin-top: 4%">
 <div class="card text-center">
     <div class="card-header" style="background-color: darkseagreen">
-        Inserisci le informazioni della tua foodbox
+        <h2>Inserisci le informazioni della tua foodbox</h2>
     </div>
     <div class="card-body">
-        <form name="ins_box_form" action="{{ url_for('create', utente =  session['user']['email']) }}" method="POST" role="form">
+        <form name="ins_box_form" style="margin-top: 2%" action="{{ url_for('create', utente =  session['user']['email']) }}" method="POST" role="form">
+            <h4>
             <label for="name">Nome box</label>
             <br>
-            <input type="text" name="tipo" class="field" required>
+            <input type="text" name="tipo" class="form-control" required>
             <br>
             <label for="name">Contenuto</label>
             <br>
-            <input type="text" name="contenuto" class="field" required>
+            <input type="text" name="contenuto" class="form-control" required>
             <br>
             <label for="name">Quantità</label>
             <br>
-            <input type="number" name="quantita" class="field" required>
+            <input type="number" name="quantita" class="form-control" required>
             <br>
             <label for="name">Nome negozio</label>
             <br>
-            <input type="text" name="negozio" class="field" required>
+            <input type="text" name="negozio" class="form-control" required>
             <br>
             <label for="name">Indirizzo</label>
             <br>
-            <input type="text" name="indirizzo" class="field" required>
-            <br><br>
-            <input type="submit" value="Carica la tua box" class="btn btn-success">
+            <input type="text" name="indirizzo" class="form-control" required>
             <br>
-
+            </h4>
+            <input type="submit" value="Carica la tua box" class="btn btn-outline-success btn-lg">
+            <br>
         </form>
-
     </div>
 </div>
-
+</div>
 
 
 {% endblock %}

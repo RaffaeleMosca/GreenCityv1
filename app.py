@@ -33,10 +33,6 @@ def home():
 def dashboard():
   return render_template('dashboard.html')
 
-@app.route('/mappa/')
-@login_required
-def mappa():
-  return render_template('mappa.html')
 
 @app.route('/raccolta/')
 @login_required

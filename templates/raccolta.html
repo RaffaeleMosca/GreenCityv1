@@ -2,25 +2,34 @@
 {% block content %}
 
 
+<div class="container-fluid" style="width: fit-content; margin-top: 4%">
 <div class="card text-center">
-  <div class="card-header">
-    Inserire nel box sottostante il rifiuto che si intende smaltire!
+  <div class="card-header" style="background-color: darkseagreen">
+      <h2>Inserire nel box sottostante il rifiuto che si intende smaltire!</h2>
   </div>
   <div class="card-body">
     <form name="ricerca_form" action="{{ url_for('add_todo') }}" method="POST" role="form">
 
-        <input type="text" name="new-todo" class="field" required>
+        <input type="text" name="new-todo" class="form-control" required>
         <br><br>
-        <input type="submit" value="Ricerca" class="btn btn-success">
+        <input type="submit" value="Ricerca" class="btn btn-outline-success btn-lg">
         <br>
 
       </form>
 
   </div>
-  <div class="card-footer text-muted">
-   <b>{{ dove }}</b>
+  <div class="card-footer card-text text-muted">
+   <h3><b>{{ dove }}</b></h3>
   </div>
 </div>
+</div>
+
+
+
+
+
+
+
 
 
 

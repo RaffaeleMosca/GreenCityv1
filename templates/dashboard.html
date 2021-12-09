@@ -2,14 +2,12 @@
 
 {% block content %}
 
-    <div class="accordion m-2">
-
-        <div align="center"> <h1><p class="text-success">Green City</p></h1></div>
-    <p>
-
+    <div class="jumbotron-fluid m-3" >
+        <h1 class="display-4 text-center" style="color: darkseagreen">Green City</h1>
+        <hr class="my-4">
         <h5>Green city è una web app che nasce con l’obiettivo di riferire ai cittadini le iniziative ecologiche di cui dispone la sua città.</h5>
         <br>
-        <p>
+        <p class="lead">
         Essa presenta le seguenti funzioni:
         </p>
         <ul>
@@ -35,7 +33,20 @@
                 </ol>
             </li>
         </ul>
-    </p>
+
+
+
+<div class="container-fluid" style="width: content-box; margin-top: 4%">
+<div class="card text-center">
+    <div class="card-header" style="background-color: darkseagreen">
+        <h2>Mappa con delineati i punti d'interesse</h2>
+    </div>
+    <div class="card-body">
+        <div id="mapid" style="height: 1000px"></div>
+    </div>
+</div>
+</div>
+
 
 
     </div>
