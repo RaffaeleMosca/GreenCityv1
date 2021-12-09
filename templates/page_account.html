@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+
+    <div class="container-fluid" style="width: fit-content; margin-top: 4%">
+    <div class="card">
+        <div class="card-header" style="background-color: darkseagreen">
+            <h1>Il tuo account</h1>
+        </div>
+        <div class="card-body">
+            <form name="modifica_pass_form" style="margin-top: 2%" action="{{ url_for('modificapass', utente =  session['user']['email'], passw = session['user']['password']) }}" method="POST" role="form">
+                <h4>
+                Nome utente: {{ session['user']['name'] }}
+                <br><br>
+                Email utente: {{ session['user']['email'] }}
+                <br><br>
+                <label for="name">Password attuale:</label>
+                <br><br>
+                <input type="password" name="password" class="form-control" required placeholder="vecchia password">
+                <br>
+
+                <label for="name">Password nuova:</label>
+                <br><br>
+                <input type="password" name="newpassword" class="form-control" required placeholder="nuova password">
+                <br>
+                </h4>
+                <input type="submit" value="Modifica passord" class="btn btn-outline-success btn-lg">
+            </form>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

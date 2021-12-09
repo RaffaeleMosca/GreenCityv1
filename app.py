@@ -1,7 +1,8 @@
 from bson import ObjectId
-from flask import Flask, render_template, session, redirect, url_for, request, jsonify
+from flask import Flask, render_template, session, redirect, url_for, request, jsonify, flash
 from functools import wraps
 import pymongo
+from passlib.handlers.pbkdf2 import pbkdf2_sha256
 
 app = Flask(__name__)
 app.secret_key = b'\xcc^\x91\xea\x17-\xd0W\x03\xa7\xf8J0\xac8\xc5'
@@ -39,6 +40,25 @@ def dashboard():
 def raccolta():
     return render_template('raccolta.html')
 
+@app.route('/utente/')
+@login_required
+def utente():
+    return render_template('page_account.html')
+
+@app.route('/modificapass/<utente>,<passw>', methods=['GET', 'POST'])
+def modificapass(utente, passw):
+    password = request.form.get('password')
+    password = pbkdf2_sha256.encrypt(password)
+    if passw == password:
+        newpassword = request.form.get('newpassword')
+        newpassword = pbkdf2_sha256.encrypt(newpassword)
+        db.users.update_one({"email": utente}, {"$set": {"password": newpassword}})
+        flash('Password cambiata correttamente!')
+        return render_template('page_account.html')
+    else:
+        flash('Password errata!')
+        return render_template('page_account.html')
+
 @app.route('/foodbox/')
 @login_required
 def cibo():
@@ -49,9 +69,13 @@ def cibo():
 @app.route('/add', methods=['POST'])
 def add_todo():
     rifiuto = request.form.get('new-todo')
-    trovato = db.raccolta.find_one({'rifiuto': rifiuto})
-    dove = trovato['dove']
-    return render_template('raccolta.html', dove=dove)
+    if db.raccolta.find_one({'rifiuto': rifiuto}):
+        trovato = db.raccolta.find_one({'rifiuto': rifiuto})
+        dove = trovato['dove']
+        return render_template('raccolta.html', dove=dove)
+    else:
+        flash('Rifiuto non trovato!')
+        return render_template('raccolta.html')
 
 @app.route('/ordina/<oid>,<utente>', methods=('POST',))
 def ordina(oid, utente):
