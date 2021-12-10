@@ -3,13 +3,20 @@ from flask import Flask, render_template, session, redirect, url_for, request, j
 from functools import wraps
 import pymongo
 from passlib.handlers.pbkdf2 import pbkdf2_sha256
+from flask_pymongo import PyMongo
 
 app = Flask(__name__)
 app.secret_key = b'\xcc^\x91\xea\x17-\xd0W\x03\xa7\xf8J0\xac8\xc5'
 
-# Database
-client = pymongo.MongoClient('localhost', 27017)
-db = client.login
+# Database locale
+#client = pymongo.MongoClient('localhost', 27017)
+#db = client.login
+
+
+#Database su cloud
+app.config['MONGO_URI'] = 'mongodb+srv://RafMosca:RafMoscaDB@cluster0.tt9vd.mongodb.net/login?retryWrites=true&w=majority'
+mongo = PyMongo(app)
+db = mongo.db
 
 # Decorators
 def login_required(f):
