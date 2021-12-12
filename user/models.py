@@ -14,7 +14,7 @@ class User:
   def signup(self):
     print(request.form)
 
-    # Create the user object
+    # Creazione dell'oggetto utente
     user = {
       "_id": uuid.uuid4().hex,
       "name": request.form.get('name'),
@@ -23,7 +23,7 @@ class User:
     }
 
 
-    # Encrypt the password
+    # Cripto la passowrd
     user['password'] = pbkdf2_sha256.encrypt(user['password'])
 
     # Check for existing email address
