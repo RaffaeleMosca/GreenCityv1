@@ -4,9 +4,11 @@ from functools import wraps
 import pymongo
 from passlib.handlers.pbkdf2 import pbkdf2_sha256
 from flask_pymongo import PyMongo
+import uuid
 
 app = Flask(__name__)
-app.secret_key = b'\xcc^\x91\xea\x17-\xd0W\x03\xa7\xf8J0\xac8\xc5'
+#genero la secret key
+app.secret_key = uuid.uuid4().hex
 
 # Database locale
 client = pymongo.MongoClient('localhost', 27017)
