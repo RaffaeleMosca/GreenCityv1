@@ -8,30 +8,30 @@
         {% for foodbox in foodb %}
             {% if foodbox.utente != session['user']['email'] %}
                 {% if foodbox.quantita > 0 %}
-            <div class="accordion-item">
-    <h2 class="accordion-header" id="headingOne">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        {{ foodbox.tipo }}
-      </button>
-    </h2>
-    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        {{ foodbox.contenuto }}
-          <br>
-          Quantità disponibile: {{ foodbox.quantita }}
-          <br>
-          Nome negozio: {{ foodbox.negozio}}
-          <br>
-          Indirizzo: {{ foodbox.indirizzo }}
-          <form class="accordion m-2" action="{{ url_for('ordina', oid=foodbox._id, utente =  session['user']['email'])}}" method="POST">
-            <button type="submit" class="btn btn-success">Ordina</button>
-          </form>
-      </div>
-    </div>
-  </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            {{ foodbox.tipo }}
+                        </button>
+                        </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        {{ foodbox.contenuto }}
+                        <br>
+                        Quantità disponibile: {{ foodbox.quantita }}
+                        <br>
+                        Nome negozio: {{ foodbox.negozio}}
+                        <br>
+                        Indirizzo: {{ foodbox.indirizzo }}
+                        <form class="accordion m-2" action="{{ url_for('ordina', oid=foodbox._id, utente =  session['user']['email'])}}" method="POST">
+                            <button type="submit" class="btn btn-success">Ordina</button>
+                        </form>
+                    </div>
+                    </div>
+                    </div>
                 {% endif %}
             {% endif %}
         {% endfor %}
-</div>
+    </div>
 
 {% endblock %}
