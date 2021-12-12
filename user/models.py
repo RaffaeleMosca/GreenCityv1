@@ -26,7 +26,6 @@ class User:
     # Cripto la passowrd
     user['password'] = pbkdf2_sha256.encrypt(user['password'])
 
-    # Check for existing email address
     if db.users.find_one({ "email": user['email'] }):
       return jsonify({ "error": "L'email inserita risulta già registrata!" }), 400
 
