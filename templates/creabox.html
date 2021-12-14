@@ -13,11 +13,20 @@
                 <h4>
                 <label for="name">Nome box</label>
                 <br>
-                <input type="text" name="tipo" class="form-control" required placeholder="nome box">
+                <input type="text" name="nome" class="form-control" required placeholder="nome box">
                 <br>
                 <label for="name">Contenuto</label>
                 <br>
                 <input type="text" name="contenuto" class="form-control" required placeholder="contenuto">
+                <br>
+                <label>Tipo </label>
+                <br>
+                <input list="tipo" name="tipo" class="form-select" required placeholder="selezionare tipo dalla lista">
+                <datalist id="tipo" name="tipo" >
+                    <option value="CARNE" />
+                    <option value="PESCE" />
+                    <option value="BENI PRIMA NECESSITA'" />
+                </datalist>
                 <br>
                 <label for="name">Quantità</label>
                 <br>

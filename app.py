@@ -10,6 +10,9 @@ app = Flask(__name__)
 #genero la secret key
 app.secret_key = uuid.uuid4().hex
 
+from datetime import timedelta
+app.permanent_session_lifetime = timedelta(minutes=30)
+
 # Database locale
 client = pymongo.MongoClient('localhost', 27017)
 db = client.login
@@ -57,8 +60,12 @@ def utente():
 @app.route('/foodbox/')
 @login_required
 def cibo():
-    foodb = db.foodbox.find()
-    return render_template('cibo.html', foodb=foodb)
+    if db.foodbox.find():
+        foodb = db.foodbox.find()
+        return render_template('cibo.html', foodb=foodb)
+    else:
+        flash('Non ci sono box da prenotare')
+        return render_template('cibo.html')
 
 @app.route('/creabox/')
 @login_required
@@ -70,6 +77,8 @@ def creabox():
 def mybox():
     ordinazione = db.ordinazioni.find()
     return render_template('mybox.html', ordinazione=ordinazione)
+
+
 
 @app.route('/myboxcaricati/')
 @login_required
@@ -111,14 +120,14 @@ def ricerca():
 def ordina(oid, utente):
     box = db.foodbox.find_one({'_id': ObjectId(oid)})
     quanti = box['quantita']
-    tipo = box['tipo']
+    nome = box['nome']
     negozio = box['negozio']
     indirizzo = box['indirizzo']
     utentebox = box['utente']
     contenuto = box['contenuto']
 
     db.foodbox.update_one({"_id": ObjectId(oid)}, {"$set": {"quantita": quanti-1}})
-    db.ordinazioni.insert_one({'utente' : utente, 'box_number': ObjectId(oid), 'tipo' : tipo, 'negozio':negozio, 'indirizzo': indirizzo, 'utente_box': utentebox, 'contenuto':contenuto})
+    db.ordinazioni.insert_one({'utente' : utente, 'box_number': ObjectId(oid), 'tipo' : nome, 'negozio':negozio, 'indirizzo': indirizzo, 'utente_box': utentebox, 'contenuto':contenuto})
 
     return redirect('/foodbox/')
 
@@ -132,12 +141,13 @@ def elimina(oid):
 #FUNZIONE PER CREARE UNA FOODBOX
 @app.route('/create/<utente>', methods=['GET', 'POST'])
 def create(utente):
-    tipo = request.form.get('tipo')
+    nome = request.form.get('nome')
     contenuto = request.form.get('contenuto')
+    tipo = request.form.get('tipo')
     quantita = request.form.get('quantita')
     negozio = request.form.get('negozio')
     indirizzo = request.form.get('indirizzo')
-    db.foodbox.insert_one({'utente': utente, 'tipo': tipo, 'contenuto': contenuto, 'quantita': int(quantita), 'negozio': negozio, 'indirizzo': indirizzo})
+    db.foodbox.insert_one({'utente': utente, 'nome': nome, 'contenuto': contenuto, 'tipo': tipo, 'quantita': int(quantita), 'negozio': negozio, 'indirizzo': indirizzo})
     return render_template('creabox.html')
 
 #FUNZIONE PER ELIMINARE UN ORDINAZIONE
@@ -167,3 +177,24 @@ def eliminaordi(oid):
 def boxritirato(oid):
     db.ordinazioni.delete_one({"_id": ObjectId(oid)})
     return redirect('/mybox/')
+
+#FUNZIONA PER EFFETTUARE RICERCA IN BASE AL TIPO DI BOX
+@app.route('/myboxricerca/<utente>',  methods=['POST'])
+def myboxricerca(utente):
+    tipo = request.form.get('tipo')
+    if db.foodbox.find_one({"tipo": tipo}):
+        print ("Trovato!")
+    else:
+        if tipo != "TUTTE":
+            flash('Non esistono box del tipo selezionato!')
+
+    if tipo == "TUTTE":
+        foodb = db.foodbox.find()
+        return render_template('cibo.html', foodb=foodb)
+
+    if db.foodbox.find({'tipo': tipo}):
+        foodb = db.foodbox.find({'tipo': tipo})
+        return render_template('cibo.html', foodb=foodb)
+
+
+    return render_template('raccolta.html')

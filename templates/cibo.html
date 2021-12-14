@@ -1,8 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div class="accordion m-5" id="accordionExample">
+        <div class="container-fluid" style="width: fit-content; margin-top: 4%">
+            <div class="card text-center">
+                <div class="card-header" style="background-color: darkseagreen">
+                    <h2>Effettuare una ricerca in base al tipo di box desiderata</h2>
+                </div>
+            <div class="card-body">
+                <form name="ins_box_form" style="margin-top: 2%" action="{{ url_for('myboxricerca', utente = session['user']['email']) }}" method="POST" role="form">
+                    <input list="tipo" name="tipo" class="form-select" required placeholder="selezionare tipo dalla lista">
+                    <datalist id="tipo" name="tipo" >
+                        <option value="TUTTE" />
+                        <option value="CARNE" />
+                        <option value="PESCE" />
+                        <option value="BENI PRIMA NECESSITA'" />
+                    </datalist>
+                    <br>
+                    <input type="submit" value="Ricerca" class="btn btn-outline-success btn">
+                </form>
 
-
+            </div>
+            <div class="card-footer card-text text-muted">
+                <h3><b>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                </b></h3>
+            </div>
+            </div>
+        </div>
+    </div>
 
     <div class="accordion m-5" id="accordionExample">
         {% for foodbox in foodb %}
@@ -11,7 +43,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            {{ foodbox.tipo }}
+                            {{ foodbox.nome}}
                         </button>
                         </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
