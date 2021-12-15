@@ -215,6 +215,9 @@ def myboxricerca(utente):
     for foodbox in foodd:
         if foodbox['utente'] != utente:
             count += 1
+    if tipo =="TUTTE":
+        count += 1
+
     if count == 0:
         flash('Non esistono box del tipo selezionato!')
         return render_template('cibo.html')
