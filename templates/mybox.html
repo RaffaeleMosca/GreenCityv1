@@ -26,11 +26,12 @@
                             Indirizzo:   {{ ordinazioni.indirizzo }}
                             <br>
                             Contenuto box:   {{ ordinazioni.contenuto }}
+                            <br><br>
                             <form class="accordion m-2" action="{{ url_for('eliminaordi', oid=ordinazioni._id)}}" method="POST">
-                                <button type="submit" class="btn btn-danger">Cancella ordinazione</button>
+                                <button type="submit" class="btn btn-outline-danger">Cancella ordinazione</button>
                             </form>
                             <form class="accordion m-2"action="{{ url_for('boxritirato', oid=ordinazioni._id)}}" method="POST">
-                                <button type="submit" class="btn btn-success">Box ritirato</button>
+                                <button type="submit" class="btn btn-outline-success">Box ritirato</button>
                             </form>
                         </div>
                     </div>

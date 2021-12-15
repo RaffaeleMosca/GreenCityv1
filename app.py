@@ -215,7 +215,7 @@ def myboxricerca(utente):
     for foodbox in foodd:
         if foodbox['utente'] != utente:
             count += 1
-    if tipo =="TUTTE":
+    if tipo == "TUTTE":
         count += 1
 
     if count == 0:
