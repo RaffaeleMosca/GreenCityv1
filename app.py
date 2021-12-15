@@ -60,12 +60,18 @@ def utente():
 @app.route('/foodbox/')
 @login_required
 def cibo():
-    if db.foodbox.find():
+    count = 0
+    foodd = db.foodbox.find()
+    for foodbox in foodd:
+        if foodbox['utente'] != session['user']['email'] and foodbox['quantita']!=0:
+            count += 1
+    if count == 0:
+        flash('Non esistono box da prenotare!')
+        return render_template('cibo.html')
+    else:
         foodb = db.foodbox.find()
         return render_template('cibo.html', foodb=foodb)
-    else:
-        flash('Non ci sono box da prenotare')
-        return render_template('cibo.html')
+
 
 @app.route('/creabox/')
 @login_required
@@ -75,17 +81,39 @@ def creabox():
 @app.route('/mybox/')
 @login_required
 def mybox():
+    count = 0
     ordinazione = db.ordinazioni.find()
-    return render_template('mybox.html', ordinazione=ordinazione)
+    for ordi in ordinazione:
+        if ordi['utente'] == session['user']['email']:
+            count = count +1
+
+    if count == 0:
+        flash('Non hai nessuna box prenotata, corri ad ordinarne una!')
+        return render_template(('mybox.html'))
+    else:
+        ordinazione = db.ordinazioni.find()
+        return render_template('mybox.html', ordinazione=ordinazione)
 
 
 
 @app.route('/myboxcaricati/')
 @login_required
 def myboxcaricati():
-    foodb = list(db.foodbox.find())
-    ordi = list(db.ordinazioni.find())
-    return render_template('myboxcaricati.html', foodb=foodb, ordi=ordi)
+    count = 0
+    foodd = db.foodbox.find()
+    for foodbox in foodd:
+        if foodbox['utente'] == session['user']['email']:
+            count = count + 1
+
+    if count == 0:
+        flash('Non hai caricato nessuna box, corri ad crearne una!')
+        return render_template(('myboxcaricati.html'))
+    else:
+        foodb = list(db.foodbox.find())
+        ordi = list(db.ordinazioni.find())
+        return render_template('myboxcaricati.html', foodb=foodb, ordi=ordi)
+
+
 
 
 #FUNZIONE CHE MODIFICA LA PASSWORD
@@ -181,7 +209,16 @@ def boxritirato(oid):
 #FUNZIONA PER EFFETTUARE RICERCA IN BASE AL TIPO DI BOX
 @app.route('/myboxricerca/<utente>',  methods=['POST'])
 def myboxricerca(utente):
+    count = 0
     tipo = request.form.get('tipo')
+    foodd = db.foodbox.find({'tipo': tipo})
+    for foodbox in foodd:
+        if foodbox['utente'] != utente:
+            count += 1
+    if count == 0:
+        flash('Non esistono box del tipo selezionato!')
+        return render_template('cibo.html')
+
     if db.foodbox.find_one({"tipo": tipo}):
         print ("Trovato!")
     else:
@@ -197,4 +234,4 @@ def myboxricerca(utente):
         return render_template('cibo.html', foodb=foodb)
 
 
-    return render_template('raccolta.html')
+    return render_template('cibo.html')

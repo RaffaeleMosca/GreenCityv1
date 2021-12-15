@@ -2,6 +2,15 @@
 
 {% block content %}
     <div class="accordion m-5" id="accordionExample">
+        <h1 style="text-align: center"><b>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+        </b></h1>
         {% for ordinazioni in ordinazione %}
             {%   if ordinazioni.utente == session['user']['email']%}
                 <div class="accordion-item">
