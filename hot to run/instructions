@@ -3,3 +3,5 @@
 3) an example of database is on the directory db
 4) install requirements with the comand pip install requirements.text
 5) finally run the web app with the command ./run (it run the file run that contains the instruction to run the app)
+
+This web app is developed with Python 3.8
