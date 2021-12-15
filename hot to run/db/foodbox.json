@@ -1,0 +1,11 @@
+[{
+  "_id": {
+    "$oid": "61b1e413a79a847baa6d2adc"
+  },
+  "utente": "email",
+  "tipo": "Panificio",
+  "contenuto": "Pane e panini",
+  "quantita": 0,
+  "negozio": "Panificio Mosca",
+  "indirizzo": "Via Mosca"
+}]

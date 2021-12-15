@@ -1,0 +1,14 @@
+[{
+  "_id": {
+    "$oid": "61b907b1ef673e3d3cf27394"
+  },
+  "utente": "email",
+  "box_number": {
+    "$oid": "61b8db624b6cd884ebecaef0"
+  },
+  "tipo": "BOX Salumeria Cinque",
+  "negozio": "Salumeria Cinque",
+  "indirizzo": "Via Cinque",
+  "utente_box": "email",
+  "contenuto": "salumi"
+}]

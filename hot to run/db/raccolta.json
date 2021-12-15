@@ -1,0 +1,25 @@
+[{
+  "_id": {
+    "$oid": "61ab40bef59b66d23a86a06f"
+  },
+  "rifiuto": "cartone pizza",
+  "dove": "umido"
+},{
+  "_id": {
+    "$oid": "61ab89c7f59b66d23a86a07b"
+  },
+  "rifiuto": "lattina",
+  "dove": "plastica"
+},{
+  "_id": {
+    "$oid": "61adefdb8923df744d2ae947"
+  },
+  "dove": "umido",
+  "rifiuto": "verdura"
+},{
+  "_id": {
+    "$oid": "61b1d540bf1be4279fe03b14"
+  },
+  "rifiuto": "frutta",
+  "dove": "umido"
+}]
