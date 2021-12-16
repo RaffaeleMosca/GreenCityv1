@@ -30,7 +30,7 @@ def login_required(f):
     if 'logged_in' in session:
       return f(*args, **kwargs)
     else:
-      return redirect('/')
+      return redirect('/log/')
 
   return wrap
 
@@ -39,16 +39,17 @@ from user import routes
 
 @app.route('/')
 def home():
-  return render_template('home.html')
+  return render_template('dashboard.html')
 
 @app.route('/dashboard/')
-@login_required
 def dashboard():
   return render_template('dashboard.html')
 
+@app.route('/log/')
+def log():
+  return render_template('log.html')
 
 @app.route('/raccolta/')
-@login_required
 def raccolta():
     return render_template('raccolta.html')
 
